@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,8 @@ import java.util.Map;
 public class HelloWorldController {
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     @GetMapping("/login")
     @ApiOperation(value = "登陆",notes = "由浏览器登陆")
     public String getUser(@RequestParam @ApiParam(value="用户名",required = true) String username, @RequestParam @ApiParam(value="密码",required = true) String password) {
@@ -27,6 +29,7 @@ public class HelloWorldController {
         user.setName(username);
         user.setPassword(password);
         System.out.println(userMapper.selectByUser(user));
+        stringRedisTemplate.opsForValue().set("username","sdfsdf");
         if (userMapper.selectByUser(user) != null)
             return "Welcome "+user.getName();
         else

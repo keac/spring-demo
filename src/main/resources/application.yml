@@ -32,4 +32,6 @@ spring:
     timeout: 10000
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.keac
+  type-aliases-package: com.keac.mappers
+  base-packages: com.keac.mappers
+

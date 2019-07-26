@@ -1,7 +1,8 @@
 package com.keac.controller;
 
-import com.keac.mapper.UserMapper;
-import com.keac.pojo.User;
+
+import com.keac.mappers.UserMapper;
+import com.keac.model.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -33,7 +34,7 @@ public class UserController {
         user.setName(username);
         user.setPassword(password);
         Map<String, Object> result = new HashMap<>();
-        if (userMapper.selectByUser(user) != null) {
+        if (userMapper.select(user) != null) {
             stringRedisTemplate.opsForValue().set("username", username);
             result.put("errorCode", "200");
             result.put("errorMsg", "Welcome " + username);
@@ -79,7 +80,8 @@ public class UserController {
         if (!(username.equals("") && password.equals(""))) {
             user.setName(username);
             user.setPassword(password);
-            if (userMapper.selectByUser(user) == null)
+            System.out.println(userMapper.select(user));
+            if (userMapper.select(user).size()==0)
                 if (userMapper.insert(user) > 0) {
                     result.put("errorCode", "200");
                     result.put("errorMsg", "ok");

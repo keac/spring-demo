@@ -5,3 +5,4 @@
 - [整合了 mybatis](https://www.loongten.com/2019/07/25/spirngboot-mybatis/)
 - [整合了 redis](https://www.loongten.com/2019/07/25/springboot-redis/)
 - 实现了mapper增删改查功能
+- [实现了SpringBoot jar war打包](https://www.loongten.com/2019/07/29/springboot-package/)

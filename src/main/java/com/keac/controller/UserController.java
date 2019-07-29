@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,9 @@ public class UserController {
         user.setName(username);
         user.setPassword(password);
         Map<String, Object> result = new HashMap<>();
+        Example example=new Example(User.class);
+        example.and();
+
         if (userMapper.select(user) != null) {
             stringRedisTemplate.opsForValue().set("username", username);
             result.put("errorCode", "200");
